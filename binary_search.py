@@ -74,4 +74,39 @@ def locate_card(cards, query):
     return binary_search(lo=0, hi=len(cards), condition=condition)
 
 
-print(locate_card(cards=cards, query=1))
+# print(locate_card(cards=cards, query=1))
+
+
+def count_rotations_linear(nums):
+    positions = 0
+
+    while positions < len(nums):
+        if positions > 0 and nums[positions] < nums[positions - 1]:
+            return positions
+
+        positions += 1
+
+    return 0
+
+
+# print(count_rotations_linear([6, 9, 11, 14, 19, 25, 29, 3, 5]))
+
+
+def count_rotations_binary(nums):
+    lo = 0
+    hi = len(nums) - 1
+
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        mid_number = nums[mid]
+
+        if mid > 0 and mid_number < nums[mid - 1]:
+            return mid
+        elif mid_number > nums[mid - 1]:
+            lo = mid + 1
+        elif mid_number < nums[mid - 1]:
+            hi = mid - 1
+
+    return 0
+
+print(count_rotations_binary([6, 9, 11, 14, 19, 25, 29, 3, 5]))
