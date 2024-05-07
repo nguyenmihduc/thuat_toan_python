@@ -1,2 +1,3 @@
-cards = list(range(1000, 0, -1))
-print(cards)
+import datetime
+today = datetime.datetime.now()
+today
