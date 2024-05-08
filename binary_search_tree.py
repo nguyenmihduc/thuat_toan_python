@@ -12,29 +12,56 @@ class User:
     def __str__(self):
         return self.__repr__()
 
-    def get_info(self):
-        return "User(username='{}', name='{}', email='{}')".format(
-            self.username, self.name, self.email
-        )
+
+class UserDatabase:
+    def __init__(self):
+        self.users = []
+
+    def insert(self, user):
+        i = 0
+        while i < len(self.users):
+            if self.users[i].username > user.username:
+                break
+            i += 1
+        self.users.insert(i, user)
+
+    def find(self, username):
+        for user in self.users:
+            if user.username == username:
+                return user
+
+    def update(self, user):
+        target = self.find(user.username)
+        target.name, target.email = user.name, user.email
+
+    def list_all(self):
+        return self.users
 
 
-user4 = User("jane", "Jane Doe", "jane@doe.com")
+aakash = User("aakash", "Aakash Rai", "aakash@example.com")
+biraj = User("biraj", "Biraj Das", "biraj@example.com")
+hemanth = User("hemanth", "Hemanth Jain", "hemanth@example.com")
+jadhesh = User("jadhesh", "Jadhesh Verma", "jadhesh@example.com")
+siddhant = User("siddhant", "Siddhant Sinha", "siddhant@example.com")
+sonaksh = User("sonaksh", "Sonaksh Kumar", "sonaksh@example.com")
+vishal = User("vishal", "Vishal Goel", "vishal@example.com")
 
-# print(user4)
+users = [aakash, biraj, hemanth, jadhesh, siddhant, sonaksh, vishal]
 
-import datetime
-today = datetime.datetime.now()
+database = UserDatabase()
 
-print(repr(today))
-'datetime.datetime(2023, 2, 18, 18, 40, 2, 160890)'
+database.insert(hemanth)
+database.insert(aakash)
+database.insert(siddhant)
 
-print(today.__repr__())
-'datetime.datetime(2023, 2, 18, 18, 40, 2, 160890)'
+print(database.list_all())
 
-print(str(today))
-'2023-02-18 18:40:02.160890'
+database.update(
+    User(username="siddhant", name="Siddhant Uuuu", email="siddhantuuuuuu@example.com")
+)
 
-print(today.__str__())
-'2023-02-18 18:40:02.160890'
+print(database.list_all())
 
-print(today)
+database.insert(biraj)
+
+print(database.list_all())
