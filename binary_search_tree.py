@@ -66,6 +66,93 @@ users = [aakash, biraj, hemanth, jadhesh, siddhant, sonaksh, vishal]
 
 # print(database.list_all())
 
+# def parse_tuple(data):
+#     # print("data:", data)
+#     if isinstance(data, tuple) and len(data) == 3:
+#         node = TreeNode(data[1])
+#         node.left = parse_tuple(data[0])
+#         node.right = parse_tuple(data[2])
+#     elif data is None:
+#         node = None
+#     else:
+#         node = TreeNode(data)
+#     return node
+
+
+# tree2 = parse_tuple(((1, 3, None), 2, ((None, 3, 4), 5, (6, 7, 8))))
+
+
+# def tree_to_tuples(node):
+#     if node is None:
+#         return None
+#     if node.left is None and node.right is None:
+#         return node.key
+#     return tree_to_tuples(node.left), node.key, "aaa", tree_to_tuples(node.right)
+
+
+# print(tree_to_tuples(tree2))
+
+
+# print(tree2.key)
+# print(tree2.left.left.key, tree2.left.right, tree2.right.left.key, tree2.right.right.key)
+
+
+def display_keys(node, space="\t", level=0):
+    # print(node.key if node else None, level)
+
+    # If the node is empty
+    if node is None:
+        print(space * level + "∅")
+        return
+
+    # If the node is a leaf
+    if node.left is None and node.right is None:
+        print(space * level + str(node.key))
+        return
+
+    # If the node has children
+    display_keys(node.right, space, level + 1)
+    print(space * level + str(node.key))
+    display_keys(node.left, space, level + 1)
+
+
+# display_keys(tree2, "   ")
+
+
+# def traverse_in_order(node):
+#     if node is None:
+#         return []
+#     return traverse_in_order(node.left) + [node.key] + traverse_in_order(node.right)
+
+
+# def pre_order(node, L):
+#     if node is None:
+#         return
+
+#     L.append(node.key)
+
+#     pre_order(node.left, L)
+#     pre_order(node.right, L)
+
+#     return L
+
+
+# def post_order(node, L):
+#     if node is None:
+#         return
+
+#     L.append(node.key)
+
+#     post_order(node.right, L)
+#     post_order(node.left, L)
+
+#     return L
+
+
+# print(traverse_in_order(tree2))
+# print(pre_order(tree2, []))
+# print(post_order(tree2, []))
+
 
 class TreeNode:
     def __init__(self, key):
@@ -151,92 +238,164 @@ tree_tuple = ((1, 3, None), 2, ((None, 3, 4), 5, (6, 7, 8)))
 tree = TreeNode.parse_tuple(tree_tuple)
 
 # print(tree.size())
-tree.display_keys('  ')
+# tree.display_keys('  ')
+# print(tree.traverse_in_order())
+# print(tree.to_tuple())
 
 
-def parse_tuple(data):
-    # print("data:", data)
-    if isinstance(data, tuple) and len(data) == 3:
-        node = TreeNode(data[1])
-        node.left = parse_tuple(data[0])
-        node.right = parse_tuple(data[2])
-    elif data is None:
-        node = None
-    else:
-        node = TreeNode(data)
+# def remove_none(nums):
+#     print(">>> nums:", nums)
+
+#     result = [x for x in nums if x is not None]
+#     print(">>> result:", result)
+
+#     return result
+
+
+# def is_bst(node):
+#     print(">>> node: ", node)
+#     print(1)
+#     if node is None:
+#         print(2)
+#         return True, None, None
+#     print(3)
+#     is_bst_l, min_l, max_l = is_bst(node.left)
+#     print(">>> is_bst_l: ", is_bst_l, ">>> min_l: ", min_l, ">>> max_l: ", max_l)
+#     print(4)
+#     is_bst_r, min_r, max_r = is_bst(node.right)
+#     print(">>> is_bst_r: ", is_bst_r, ">>> min_r: ", min_r, ">>> max_r: ", max_r)
+#     print(5)
+#     is_bst_node = (
+#         is_bst_l
+#         and is_bst_r
+#         and (max_l is None or node.key > max_l)
+#         and (min_r is None or node.key < min_r)
+#     )
+#     print(">>> is_bst_node: ", is_bst_node)
+#     print(6)
+#     min_key = min(remove_none([min_l, node.key, min_r]))
+#     print(">>> min_key: ", min_key)
+#     print(7)
+#     max_key = max(remove_none([max_l, node.key, max_r]))
+#     print(">>> max_key: ", max_key)
+#     print(8)
+#     print(node.key, min_key, max_key, is_bst_node)
+#     print()
+
+#     return is_bst_node, min_key, max_key
+
+
+def remove_none(nums):
+    return [x for x in nums if x is not None]
+
+
+def is_bst(node):
+    if node is None:
+        return True, None, None
+
+    is_bst_l, min_l, max_l = is_bst(node.left)
+    is_bst_r, min_r, max_r = is_bst(node.right)
+
+    is_bst_node = (
+        is_bst_l
+        and is_bst_r
+        and (max_l is None or node.key > max_l)
+        and (min_r is None or node.key < min_r)
+    )
+
+    min_key = min(remove_none([min_l, node.key, min_r]))
+    max_key = max(remove_none([max_l, node.key, max_r]))
+
+    # print(node.key, min_key, max_key, is_bst_node)
+
+    return is_bst_node, min_key, max_key
+
+
+tree2 = TreeNode.parse_tuple(
+    (("aakash", "biraj", "hemanth"), "jadhesh", ("siddhant", "sonaksh", "vishal"))
+)
+
+# print(is_bst(tree2))
+
+
+class BSTNode:
+    def __init__(self, key, value=None):
+        self.key = key
+        self.value = value
+        self.left = None
+        self.right = None
+        self.parent = None
+
+    def to_tuple(self):
+        if self is None:
+            return None
+        if self.left is None and self.right is None:
+            return self.key
+        return TreeNode.to_tuple(self.left), self.key, TreeNode.to_tuple(self.right)
+
+    def __str__(self):
+        return "BSTNode <{}>".format(self.to_tuple())
+
+    def __repr__(self):
+        return "BSTNode <{}>".format(self.to_tuple())
+
+
+# tree = BSTNode(jadhesh.username, jadhesh)
+
+# tree.left = BSTNode(biraj.username, biraj)
+# tree.right = BSTNode(sonaksh.username, sonaksh)
+
+# tree.left.left = BSTNode(aakash.username, aakash)
+# tree.left.right = BSTNode(hemanth.username, hemanth)
+
+# tree.right.left = BSTNode(siddhant.username, siddhant)
+# tree.right.right = BSTNode(vishal.username, vishal)
+
+
+# print(tree.left.key, tree.left.value, tree.right.key, tree.right.value)
+# display_keys(tree)
+
+
+def insert(node, key, value):
+    print(1)
+    if node is None:
+        print(2)
+        node = BSTNode(key, value)
+        print(3)
+    elif key < node.key:
+        print(4)
+        node.left = insert(node.left, key, value)
+        print(5)
+        node.left.parent = node
+        print(6)
+    elif key > node.key:
+        print(7)
+        node.right = insert(node.right, key, value)
+        print(8)
+        node.right.parent = node
+        print(9)
+
+    print(">>> node:", node)
+
     return node
 
 
-tree2 = parse_tuple(((1, 3, None), 2, ((None, 3, 4), 5, (6, 7, 8))))
+tree = insert(None, jadhesh.username, jadhesh)
+insert(tree, biraj.username, biraj)
+# insert(tree, sonaksh.username, sonaksh)
+# insert(tree, aakash.username, aakash)
+# insert(tree, hemanth.username, hemanth)
+# insert(tree, siddhant.username, siddhant)
+# insert(tree, vishal.username, siddhant)
 
+# display_keys(tree)
 
-def tree_to_tuples(node):
-    if node is None:
-        return None
-    if node.left is None and node.right is None:
-        return node.key
-    return tree_to_tuples(node.left), node.key, "aaa", tree_to_tuples(node.right)
+# tree2 = insert(None, aakash.username, aakash)
+# insert(tree2, biraj.username, biraj)
+# insert(tree2, hemanth.username, hemanth)
+# insert(tree2, jadhesh.username, jadhesh)
+# insert(tree2, siddhant.username, siddhant)
+# insert(tree2, sonaksh.username, sonaksh)
+# insert(tree2, vishal.username, vishal)
 
-
-# print(tree_to_tuples(tree2))
-
-
-# print(tree2.key)
-# print(tree2.left.left.key, tree2.left.right, tree2.right.left.key, tree2.right.right.key)
-
-
-# def display_keys(node, space="\t", level=0):
-#     # print(node.key if node else None, level)
-
-#     # If the node is empty
-#     if node is None:
-#         print(space * level + "∅")
-#         return
-
-#     # If the node is a leaf
-#     if node.left is None and node.right is None:
-#         print(space * level + str(node.key))
-#         return
-
-#     # If the node has children
-#     display_keys(node.right, space, level + 1)
-#     print(space * level + str(node.key))
-#     display_keys(node.left, space, level + 1)
-
-
-# display_keys(tree2, "   ")
-
-
-def traverse_in_order(node):
-    if node is None:
-        return []
-    return traverse_in_order(node.left) + [node.key] + traverse_in_order(node.right)
-
-
-def pre_order(node, L):
-    if node is None:
-        return
-
-    L.append(node.key)
-
-    pre_order(node.left, L)
-    pre_order(node.right, L)
-
-    return L
-
-
-def post_order(node, L):
-    if node is None:
-        return
-
-    L.append(node.key)
-
-    post_order(node.right, L)
-    post_order(node.left, L)
-
-    return L
-
-
-# print(traverse_in_order(tree2))
-# print(pre_order(tree2, []))
-# print(post_order(tree2, []))
+# display_keys(tree2)
