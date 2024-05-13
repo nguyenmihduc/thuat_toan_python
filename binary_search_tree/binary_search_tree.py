@@ -357,6 +357,7 @@ class BSTNode:
 
 
 def insert(node, key, value):
+    print(">>> node input:", node)
     print(1)
     if node is None:
         print(2)
@@ -375,20 +376,21 @@ def insert(node, key, value):
         node.right.parent = node
         print(9)
 
-    print(">>> node:", node)
-
+    print(">>> node output:", node)
+    print()
     return node
 
 
 tree = insert(None, jadhesh.username, jadhesh)
 insert(tree, biraj.username, biraj)
-# insert(tree, sonaksh.username, sonaksh)
+insert(tree, sonaksh.username, sonaksh)
 # insert(tree, aakash.username, aakash)
 # insert(tree, hemanth.username, hemanth)
 # insert(tree, siddhant.username, siddhant)
 # insert(tree, vishal.username, siddhant)
 
-# display_keys(tree)
+print("--------------------------------")
+display_keys(tree)
 
 # tree2 = insert(None, aakash.username, aakash)
 # insert(tree2, biraj.username, biraj)
