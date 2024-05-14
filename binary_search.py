@@ -152,4 +152,5 @@ def count_rotations_binary(nums):
 
     return 0
 
+
 print(count_rotations_binary([6, 9, 11, 14, 19, 25, 29, 3, 5]))

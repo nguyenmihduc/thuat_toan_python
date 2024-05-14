@@ -48,45 +48,45 @@ vishal = User("vishal", "Vishal Goel", "vishal@example.com")
 
 users = [aakash, biraj, hemanth, jadhesh, siddhant, sonaksh, vishal]
 
-# database = UserDatabase()
-# database.insert(hemanth)
-# database.insert(aakash)
-# database.insert(siddhant)
+database = UserDatabase()
+database.insert(hemanth)
+database.insert(aakash)
+database.insert(siddhant)
 
 # print(database.list_all())
 
-# database.update(
-#     User(username="siddhant", name="Siddhant Uuuu", email="siddhantuuuuuu@example.com")
-# )
+database.update(
+    User(username="siddhant", name="Siddhant Uuuu", email="siddhantuuuuuu@example.com")
+)
 
 # print(database.list_all())
 
-# database.insert(biraj)
+database.insert(biraj)
 
 # print(database.list_all())
 
-# def parse_tuple(data):
-#     # print("data:", data)
-#     if isinstance(data, tuple) and len(data) == 3:
-#         node = TreeNode(data[1])
-#         node.left = parse_tuple(data[0])
-#         node.right = parse_tuple(data[2])
-#     elif data is None:
-#         node = None
-#     else:
-#         node = TreeNode(data)
-#     return node
+def parse_tuple(data):
+    # print("data:", data)
+    if isinstance(data, tuple) and len(data) == 3:
+        node = TreeNode(data[1])
+        node.left = parse_tuple(data[0])
+        node.right = parse_tuple(data[2])
+    elif data is None:
+        node = None
+    else:
+        node = TreeNode(data)
+    return node
 
 
 # tree2 = parse_tuple(((1, 3, None), 2, ((None, 3, 4), 5, (6, 7, 8))))
 
 
-# def tree_to_tuples(node):
-#     if node is None:
-#         return None
-#     if node.left is None and node.right is None:
-#         return node.key
-#     return tree_to_tuples(node.left), node.key, "aaa", tree_to_tuples(node.right)
+def tree_to_tuples(node):
+    if node is None:
+        return None
+    if node.left is None and node.right is None:
+        return node.key
+    return tree_to_tuples(node.left), node.key, "aaa", tree_to_tuples(node.right)
 
 
 # print(tree_to_tuples(tree2))
@@ -118,34 +118,34 @@ def display_keys(node, space="\t", level=0):
 # display_keys(tree2, "   ")
 
 
-# def traverse_in_order(node):
-#     if node is None:
-#         return []
-#     return traverse_in_order(node.left) + [node.key] + traverse_in_order(node.right)
+def traverse_in_order(node):
+    if node is None:
+        return []
+    return traverse_in_order(node.left) + [node.key] + traverse_in_order(node.right)
 
 
-# def pre_order(node, L):
-#     if node is None:
-#         return
+def pre_order(node, L):
+    if node is None:
+        return
 
-#     L.append(node.key)
+    L.append(node.key)
 
-#     pre_order(node.left, L)
-#     pre_order(node.right, L)
+    pre_order(node.left, L)
+    pre_order(node.right, L)
 
-#     return L
+    return L
 
 
-# def post_order(node, L):
-#     if node is None:
-#         return
+def post_order(node, L):
+    if node is None:
+        return
 
-#     L.append(node.key)
+    L.append(node.key)
 
-#     post_order(node.right, L)
-#     post_order(node.left, L)
+    post_order(node.right, L)
+    post_order(node.left, L)
 
-#     return L
+    return L
 
 
 # print(traverse_in_order(tree2))
@@ -242,12 +242,13 @@ tree = TreeNode.parse_tuple(tree_tuple)
 # print(tree.to_tuple())
 
 
+
+#  CHECK THE TREE IS BINARY SEARCH TREE?
+
 # def remove_none(nums):
 #     print(">>> nums:", nums)
-
 #     result = [x for x in nums if x is not None]
 #     print(">>> result:", result)
-
 #     return result
 
 
@@ -280,8 +281,8 @@ tree = TreeNode.parse_tuple(tree_tuple)
 #     print(8)
 #     print(node.key, min_key, max_key, is_bst_node)
 #     print()
-
 #     return is_bst_node, min_key, max_key
+
 
 
 def remove_none(nums):
@@ -306,7 +307,6 @@ def is_bst(node):
     max_key = max(remove_none([max_l, node.key, max_r]))
 
     # print(node.key, min_key, max_key, is_bst_node)
-
     return is_bst_node, min_key, max_key
 
 
@@ -315,88 +315,3 @@ tree2 = TreeNode.parse_tuple(
 )
 
 # print(is_bst(tree2))
-
-
-class BSTNode:
-    def __init__(self, key, value=None):
-        self.key = key
-        self.value = value
-        self.left = None
-        self.right = None
-        self.parent = None
-
-    def to_tuple(self):
-        if self is None:
-            return None
-        if self.left is None and self.right is None:
-            return self.key
-        return TreeNode.to_tuple(self.left), self.key, TreeNode.to_tuple(self.right)
-
-    def __str__(self):
-        return "BSTNode <{}>".format(self.to_tuple())
-
-    def __repr__(self):
-        return "BSTNode <{}>".format(self.to_tuple())
-
-
-# tree = BSTNode(jadhesh.username, jadhesh)
-
-# tree.left = BSTNode(biraj.username, biraj)
-# tree.right = BSTNode(sonaksh.username, sonaksh)
-
-# tree.left.left = BSTNode(aakash.username, aakash)
-# tree.left.right = BSTNode(hemanth.username, hemanth)
-
-# tree.right.left = BSTNode(siddhant.username, siddhant)
-# tree.right.right = BSTNode(vishal.username, vishal)
-
-
-# print(tree.left.key, tree.left.value, tree.right.key, tree.right.value)
-# display_keys(tree)
-
-
-def insert(node, key, value):
-    print(">>> node input:", node)
-    print(1)
-    if node is None:
-        print(2)
-        node = BSTNode(key, value)
-        print(3)
-    elif key < node.key:
-        print(4)
-        node.left = insert(node.left, key, value)
-        print(5)
-        node.left.parent = node
-        print(6)
-    elif key > node.key:
-        print(7)
-        node.right = insert(node.right, key, value)
-        print(8)
-        node.right.parent = node
-        print(9)
-
-    print(">>> node output:", node)
-    print()
-    return node
-
-
-tree = insert(None, jadhesh.username, jadhesh)
-insert(tree, biraj.username, biraj)
-insert(tree, sonaksh.username, sonaksh)
-# insert(tree, aakash.username, aakash)
-# insert(tree, hemanth.username, hemanth)
-# insert(tree, siddhant.username, siddhant)
-# insert(tree, vishal.username, siddhant)
-
-print("--------------------------------")
-display_keys(tree)
-
-# tree2 = insert(None, aakash.username, aakash)
-# insert(tree2, biraj.username, biraj)
-# insert(tree2, hemanth.username, hemanth)
-# insert(tree2, jadhesh.username, jadhesh)
-# insert(tree2, siddhant.username, siddhant)
-# insert(tree2, sonaksh.username, sonaksh)
-# insert(tree2, vishal.username, vishal)
-
-# display_keys(tree2)
