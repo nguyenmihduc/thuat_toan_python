@@ -1,8 +1,7 @@
-memo = {}
-key1 = (8,9)
-key2 = (4,4)
-memo[key1] = 3
-memo[key2] = 9
+n1 = 5
+n2 = 7
+# list_1 = [[0 for x in range(n2)] for x in range(n1)]
+# print(list_1)
 
-
-print((7,9) in memo)
+for idx in range(n1):
+    print(idx)
