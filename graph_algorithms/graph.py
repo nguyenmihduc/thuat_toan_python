@@ -1,8 +1,25 @@
-num_nodes = 5
-edges = [(0, 1), (0, 4), (1, 2), (1, 3), (1, 4), (2, 3), (3, 4)]
+num_nodes1 = 5
+edges1 = [(0, 1), (0, 4), (1, 2), (1, 3), (1, 4), (2, 3), (3, 4)]
+
+num_nodes2 = 9
+edges2 = [(0, 1), (0, 3), (1, 2), (2, 3), (4, 5), (4, 6), (5, 6), (7, 8)]
 
 num_nodes3 = 9
-edges3 = [(0, 1), (0, 3), (1, 2), (2, 3), (4, 5), (4, 6), (5, 6), (7, 8)]
+edges3 = [
+    (0, 1, 3),
+    (0, 3, 2),
+    (0, 8, 4),
+    (1, 7, 4),
+    (2, 7, 2),
+    (2, 3, 6),
+    (2, 5, 1),
+    (3, 4, 1),
+    (4, 8, 8),
+    (5, 6, 8),
+]
+
+num_nodes4 = 5
+edges4 = [(0, 1), (1, 2), (2, 3), (2, 4), (4, 2), (3, 0)]
 
 
 class Graph:
@@ -22,13 +39,41 @@ class Graph:
         return self.__repr__()
 
 
-graph1 = Graph(num_nodes, edges)
-print(graph1)
-print(graph1.data)
+class Graph2:
+    def __init__(self, num_nodes, edges, directed=False, weighted=False):
+        self.num_nodes = num_nodes
+        self.directed = directed
 
-graph3 = Graph(num_nodes3, edges3)
-# print(graph3)
-# print(graph3.data)
+        self.weighted = weighted
+        self.data = [[] for _ in range(num_nodes)]
+        self.weight = [[] for _ in range(num_nodes)]
+
+        for edge in edges:
+            if self.weighted:
+                node1, node2, weight = edge
+                self.data[node1].append(node2)
+                self.weight[node1].append(weight)
+                if not directed:
+                    self.data[node2].append(node1)
+                    self.weight[node2].append(weight)
+            else:
+                node1, node2 = edge
+                self.data[node1].append(node2)
+                if not directed:
+                    self.data[node2].append(node1)
+
+    def __repr__(self):
+        result = ""
+        if self.weighted:
+            for i, (nodes, weights) in enumerate(zip(self.data, self.weight)):
+                result += "{}: {}\n".format(i, list(zip(nodes, weights)))
+        else:
+            for i, nodes in enumerate(self.data):
+                result += "{}: {}\n".format(i, nodes)
+        return result
+
+    def __str__(self):
+        return self.__repr__()
 
 
 def bfs(graph: Graph, root):
@@ -59,10 +104,6 @@ def bfs(graph: Graph, root):
     return queue, distance, parent
 
 
-# print(bfs(graph1, 3))
-# print(bfs(graph3, 3))
-
-
 def dfs(graph, root):
     stack = []
     discovered = [False] * len(graph.data)
@@ -83,4 +124,23 @@ def dfs(graph, root):
     return result, discovered, stack
 
 
-print(dfs(graph1, 3))
+graph1 = Graph2(num_nodes1, edges1)
+# print(graph1)
+# print(graph1.data)
+
+graph2 = Graph2(num_nodes2, edges2)
+# print(graph2)
+# print(graph2.data)
+
+graph3 = Graph2(num_nodes3, edges3, weighted=True)
+# print(graph3)
+# print(graph3.data)
+
+graph4 = Graph2(num_nodes4, edges4, directed=True)
+# print(graph4)
+# print(graph4.data)
+
+
+# print(dfs(graph1, 3))
+# print(bfs(graph1, 3))
+# print(bfs(graph3, 3))
