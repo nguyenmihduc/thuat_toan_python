@@ -21,6 +21,9 @@ edges3 = [
 num_nodes4 = 5
 edges4 = [(0, 1), (1, 2), (2, 3), (2, 4), (4, 2), (3, 0)]
 
+num_nodes5 = 6
+edges5 = [(0, 1, 4), (0, 2, 2), (1, 2, 5), (1, 3, 10), (2, 4, 3), (4, 3, 4), (3, 5, 11)]
+
 
 class Graph:
     def __init__(self, num_nodes, edges):
@@ -140,7 +143,69 @@ graph4 = Graph2(num_nodes4, edges4, directed=True)
 # print(graph4)
 # print(graph4.data)
 
+graph5 = Graph2(num_nodes5, edges5, weighted=True, directed=True)
+# print(graph5)
+# print(graph5.data)
+
 
 # print(dfs(graph1, 3))
 # print(bfs(graph1, 3))
 # print(bfs(graph3, 3))
+
+
+def update_distances(graph, current, distance, parent=None):
+    """Update the distances of the current node's neighbors"""
+    neighbors = graph.data[current]
+    weights = graph.weight[current]
+    for i, node in enumerate(neighbors):
+        weight = weights[i]
+        if distance[current] + weight < distance[node]:
+            distance[node] = distance[current] + weight
+            if parent:
+                parent[node] = current
+
+
+def pick_next_node(distance, visited):
+    """Pick the next univisited node at the smallest distance"""
+    min_distance = float("inf")
+    min_node = None
+    for node in range(len(distance)):
+        if not visited[node] and distance[node] < min_distance:
+            min_node = node
+            min_distance = distance[node]
+    return min_node
+
+
+def shortest_path(graph, source, target):
+    visited = [False] * len(graph.data)
+    distance = [float("inf")] * len(graph.data)
+    parent = [None] * len(graph.data)
+    queue = []
+
+    distance[source] = 0
+    queue.append(source)
+    idx = 0
+
+    while idx < len(queue) and not visited[target]:
+        current = queue[idx]
+        visited[current] = True
+        idx += 1
+
+        #  update distances of all neighbors
+        update_distances(graph, current, distance, parent)
+
+        # find the first unvisited node with yhe smallest distance
+        next_node = pick_next_node(distance, visited)
+        if next_node:
+            queue.append(next_node)
+
+    print(">>> visited:", visited)
+    print(">>> distance:", distance)
+    print(">>> queue:", queue)
+    print(">>> parent:", parent)
+
+    return distance[target]
+
+
+print(shortest_path(graph3, 6, 8))
+# print(shortest_path(graph5, 0, 5))
