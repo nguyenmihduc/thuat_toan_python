@@ -27,20 +27,22 @@
 # print(result)
 
 
-def handle_short_path(start, end, parents):
-    result = []
-    result.append(end)
-    idx = parents[end]
-    result.append(idx)
+# def handle_short_path(start, end, parents):
+#     result = []
+#     result.append(end)
+#     idx = parents[end]
+#     result.append(idx)
 
-    while idx is not None:
-        next = parents[idx]
-        result.append(next)
-        idx = next
+#     while idx is not None:
+#         next = parents[idx]
+#         result.append(next)
+#         idx = next
 
-    return result
+#     return result
 
 
-result = handle_short_path(7, 8, [3, 7, 5, 2, 3, 6, None, 2, 4])
+# result = handle_short_path(7, 8, [3, 7, 5, 2, 3, 6, None, 2, 4])
 
-print(result)
+# print(result)
+
+

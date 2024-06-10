@@ -178,8 +178,9 @@ def pick_next_node(distance, visited):
 
 def shortest_path(graph, source, target):
     visited = [False] * len(graph.data)
-    distance = [float("inf")] * len(graph.data)
     parent = [None] * len(graph.data)
+    distance = [float("inf")] * len(graph.data)
+
     queue = []
 
     distance[source] = 0
@@ -207,5 +208,5 @@ def shortest_path(graph, source, target):
     return distance[target]
 
 
-print(shortest_path(graph3, 6, 8))
+print(shortest_path(graph3, 2, 8))
 # print(shortest_path(graph5, 0, 5))
